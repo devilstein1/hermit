@@ -12,12 +12,12 @@
 
 ### 🚀 Overview
 
-**Hermit** is the most powerful Python obfuscation engine, developed by **Stein**  
-🔗 https://t.me/rejerk
+**Hermit** is the most powerful Python obfuscation engine, developed by  
+**[Stein](https://t.me/rejerk)**
 
-Hermit makes your Python code virtually impossible to be retrieved back to its original form.
+Hermit transforms Python source code into a highly secured, non-reversible format, making it virtually impossible to retrieve the original logic.
 
-It is designed to run on most major platforms:
+It supports execution on major platforms including:
 
 - 🖥️ Windows  
 - 📱 ARMv7  
@@ -27,66 +27,98 @@ It is designed to run on most major platforms:
 
 ### 📦 Dependencies
 
-To make the code work properly, all required dependencies must be installed.
+To ensure proper functionality, all required dependencies must be installed.
 
-The obfuscator runs **only on Termux**, while the obfuscated output runs on **ARMv7, ARMv8, and Windows**.
+> ⚠️ The obfuscation engine runs **only on Termux**  
+> The obfuscated output runs on **ARMv7, ARMv8, and Windows**
 
 ---
 
 ### 🛠️ Installation (Termux Only)
 
-pkg update  
-pkg upgrade  
-pkg install git -y  
-pkg install python -y  
-git clone https://github.com/devilstein1/hermit/  
-cd hermit  
-pip install -r requirements.txt  
-python enc.py req  
+> You can copy and paste the commands below directly:
+
+```bash
+pkg update
+pkg upgrade
+pkg install git -y
+pkg install python -y
+git clone https://github.com/devilstein1/hermit/
+cd hermit
+pip install -r requirements.txt
+python enc.py req
+```
 
 ---
 
-### 🔐 Pros of This Encryption
+<div align="center">
 
-- ⚡ Fast ASF — 2–3× faster than normal Python  
-- 🛡️ Highly secured — cannot be decoded back to original Python  
-- 🔒 SteinCrypt & STEINbest strings  
-- 🤖 Bot execution support  
-- 🎯 Platform-specific obfuscation  
-- ✅ Almost zero runtime errors  
+### 🔐 **PROS OF THIS ENCRYPTION**
+
+</div>
+
+- ⚡ **Fast ASF** — 2–3× faster than normal Python
+- 🛡️ **Highly Secured** — cannot be decoded back to original Python code
+- 🔒 Advanced protection layers:
+  - **SteinCrypt**
+  - **STEINbest Strings**
+- 🤖 Supports bot execution:
+  ```bash
+  python enc.py bot
+  ```
+- 🎯 Platform-specific obfuscation options
+- ✅ Almost zero runtime errors
 
 ---
 
-### ⚙️ Notes
+### ⚙️ Configuration Notes
 
-If your script is complex, disable:
-- steincrypt
-- stein-best
+For complex scripts, you may need to disable certain encryption layers such as:
 
-Edit via `settings.json`
+- `steincrypt`
+- `stein-best`
+
+These options can be modified in:
+
+```json
+settings.json
+```
 
 ---
 
-### 📌 Requirements
+### 📌 Requirements & Limitations
 
-- Termux only  
-- Python 3.12 only  
+- Runs **only on Termux**
+- Compatible **only with Python 3.12**
 
 ---
 
 ### 📞 Contacts
 
-Telegram: https://t.me/rejerk  
-Group: https://t.me/keped  
-Instagram: https://instagram.com/crying_kidz  
+- 📬 Telegram: [@rejerk](https://t.me/rejerk)
+- 💬 Group Chat: [@keped](https://t.me/keped)
+- 📸 Instagram: [@crying_kidz](https://instagram.com/crying_kidz)
+
+---
+
+### 📄 License
+
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this software, provided proper credit is given to the original author.
 
 ---
 
 ### ⚠️ DISCLAIMER
 
-Educational use only.  
-No responsibility is taken for misuse or encrypted output.
+This software is provided **strictly for educational purposes**.
+
+The author assumes **no responsibility** for misuse, malicious intent, or any consequences arising from the encrypted output.
 
 ---
 
+<div align="center">
+
 **STEIN | REJERK**
+
+</div>
