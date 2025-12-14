@@ -5,3 +5,4 @@ pytz
 python_minifier
 astor
 python-cfonts
+ntplib
