@@ -1,4 +1,4 @@
-![Hermit Banner]([https://i.pinimg.com/1200x/92/07/12/920712f485d1f0211c6cb0832ce6c36a.jpg](https://raw.githubusercontent.com/devilstein1/hermit/refs/heads/main/a_professional_photograph_of_a_dark_hermit.jpeg))
+![Hermit Banner]([https://media.discordapp.net/attachments/1448982456492490838/1449621789016723578/a_professional_photograph_of_a_dark_hermit.png?ex=693f90ff&is=693e3f7f&hm=7b1e714b7f5a4afd87fd7709bf65b4bdf48060db6de8a36a294b4558b6750a98&=&format=webp&quality=lossless&width=968&height=968))
 
 ---
 
