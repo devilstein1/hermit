@@ -1,4 +1,4 @@
-![Hermit Banner]([https://i.ibb.co/sBWBFgD/a-professional-photograph-of-a-dark-hermit.jpg))
+![Hermit Banner](https://i.ibb.co/sBWBFgD/a-professional-photograph-of-a-dark-hermit.jpg)
 
 ---
 
