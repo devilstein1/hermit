@@ -1,0 +1,7 @@
+requests
+rich
+cython
+pytz
+python_minifier
+astor
+python-cfonts
