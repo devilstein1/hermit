@@ -1,4 +1,4 @@
-![Hermit Banner](https://i.pinimg.com/1200x/92/07/12/920712f485d1f0211c6cb0832ce6c36a.jpg)
+![Hermit Banner]([https://i.pinimg.com/1200x/92/07/12/920712f485d1f0211c6cb0832ce6c36a.jpg](https://raw.githubusercontent.com/devilstein1/hermit/refs/heads/main/a_professional_photograph_of_a_dark_hermit.jpeg))
 
 ---
 
