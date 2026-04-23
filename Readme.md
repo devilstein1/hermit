@@ -10,7 +10,7 @@
 
 <br>
 
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Cython](https://img.shields.io/badge/Cython-Powered-F7C948?style=for-the-badge&logo=cython&logoColor=black)](https://cython.org)
 [![Termux](https://img.shields.io/badge/Termux-Only-1DBF73?style=for-the-badge&logo=android&logoColor=white)](#)
 [![Subscription](https://img.shields.io/badge/Subscription-Required-FF4444?style=for-the-badge&logo=buymeacoffee&logoColor=white)](#contact)
@@ -24,15 +24,16 @@
 
 **Hermit** is the most powerful Python obfuscation engine, developed by **[Stein](https://t.me/rejerk)**
 
-Hermit transforms Python source code into a highly secured, non-reversible format — making it virtually impossible to retrieve the original logic. Built on top of **Python** and **Cython**, it compiles scripts into native binaries with advanced encryption layers on top.
+Hermit transforms Python source code into a highly secured, non-reversible format — making it **completely impossible** to retrieve the original logic. Built on top of **Python** and **Cython**, it compiles scripts into native binaries with advanced encryption layers on top.
 
-> 🔐 **Subscription Required** — Contact [@rejerk](https://t.me/rejerk) on Telegram to purchase access.
+> 🔐 **Subscription Required** — Purchase access instantly via [@stein_vault_bot](https://t.me/stein_vault_bot) on Telegram. **Auto crypto payments supported!**
 
 **Obfuscated output runs on:**
 
 | Platform | Architecture |
 |----------|-------------|
 | 🖥️ Windows | x64 |
+| 🐧 Linux | x64 |
 | 📱 Android | ARMv7 |
 | 📱 Android | ARMv8 |
 
@@ -41,11 +42,11 @@ Hermit transforms Python source code into a highly secured, non-reversible forma
 ## 📦 Platform & Requirements
 
 > [![Termux](https://img.shields.io/badge/Runs%20On-Termux-1DBF73?style=flat-square&logo=android&logoColor=white)](#)
-> [![Python](https://img.shields.io/badge/Python-3.12%20Only-3776AB?style=flat-square&logo=python&logoColor=white)](#)
+> [![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB?style=flat-square&logo=python&logoColor=white)](#)
 
 - Engine runs **only on Termux**
-- Requires **Python 3.12** exclusively
-- Obfuscated output runs on ARMv7, ARMv8, and Windows
+- Supports **Python 3.11, 3.12, and 3.13**
+- Obfuscated output runs on ARMv7, ARMv8, Windows, and Linux
 
 ---
 
@@ -64,7 +65,11 @@ python enc.py req
 
 ## ⚙️ Usage
 
-Hermit provides **3 modes** of operation:
+Hermit provides **4 modes** of operation. Run `python enc.py help` to see all available commands and options.
+
+```bash
+python enc.py help
+```
 
 ---
 
@@ -110,12 +115,22 @@ python enc.py site
 
 ---
 
+### 4️⃣ Bot Control Mode
+
+```bash
+python enc.py bot_control
+```
+
+> Control and manage Hermit remotely via a Telegram bot interface. Perfect for managing encryption jobs without direct terminal access.
+
+---
+
 ## 🔐 Encryption Features
 
 | Feature | Description |
 |---------|-------------|
 | ⚡ **Speed** | 2–3× faster than standard Python execution |
-| 🛡️ **Irreversible** | Cannot be decoded back to original source |
+| 🛡️ **Irreversible** | Zero chance of recovering the original source code |
 | 🔒 **SteinCrypt** | Core obfuscation layer |
 | 🔑 **STEINbest Strings** | String-level encryption |
 | ✅ **Stability** | Almost zero runtime errors |
@@ -124,7 +139,7 @@ python enc.py site
 
 ## ⚙️ Configuration
 
-For complex scripts, encryption layers can be toggled in `settings.json`:
+Encryption layers can be toggled in `settings.json`:
 
 ```json
 {
@@ -134,6 +149,30 @@ For complex scripts, encryption layers can be toggled in `settings.json`:
 ```
 
 > Set any option to `false` to disable that layer if compatibility issues arise.
+
+You can also manage settings directly from the command line:
+
+```bash
+python enc.py setting
+```
+
+> Use this command to interactively view and change your `settings.json` options without editing the file manually.
+
+---
+
+## 💳 Purchase / Subscription
+
+<div align="center">
+
+[![Buy Now](https://img.shields.io/badge/Buy%20via%20Bot-@stein__vault__bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/stein_vault_bot)
+
+</div>
+
+Purchase your subscription instantly through **[@stein_vault_bot](https://t.me/stein_vault_bot)** on Telegram.
+
+- 🪙 **Auto crypto payments** supported
+- ⚡ Instant access after payment
+- 🔒 Secure and automated
 
 ---
 
