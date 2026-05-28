@@ -72,7 +72,7 @@ After running `prefix`, the `enc.py` command is available globally in Termux.
 After installation, simply run:
 
 ```bash
-enc.py
+steinenc
 ```
 
 This will automatically download and execute the correct version file for your Python installation.
@@ -102,10 +102,10 @@ The `steinenc` command automatically:
 
 ## ⚙️ Usage
 
-Hermit provides **4 modes** of operation. Run `steinenc help` or `python enc.py help` to see all available commands and options.
+Hermit provides **4 modes** of operation. Run `steinenc --help` to see all available commands and options.
 
 ```bash
-steinenc help
+steinenc --help
 ```
 
 ---
