@@ -47,6 +47,7 @@ Hermit transforms Python source code into a highly secured, non-reversible forma
 - Engine runs **only on Termux**
 - Supports **Python 3.11, 3.12, and 3.13**
 - Obfuscated output runs on ARMv7, ARMv8, Windows, and Linux
+- **3 version-specific builds** available in `/files` directory — download the one matching your Python version
 
 ---
 
@@ -59,16 +60,52 @@ git clone https://github.com/devilstein1/hermit/
 cd hermit
 pip install -r requirements.txt
 python enc.py req
+python enc.py prefix
 ```
+
+After running `prefix`, the `enc.py` command is available globally in Termux.
+
+---
+
+## 🚀 First Run
+
+After installation, simply run:
+
+```bash
+enc.py
+```
+
+This will automatically download and execute the correct version file for your Python installation.
+
+---
+
+## ⚡ Global Command
+
+Once `prefix` is set up, use `steinenc` from anywhere:
+
+```bash
+steinenc           # Auto-detects Python version and runs correct file
+steinenc help      # Show all commands
+steinenc bot       # Bot mode
+steinenc site      # Web UI mode
+steinenc settings  # Configure encryption layers
+```
+
+The `steinenc` command automatically:
+- Detects your Python version (3.11, 3.12, or 3.13)
+- Downloads the matching version file from GitHub
+- Executes it with all features enabled
+
+> No need to `cd` into the Hermit directory every time — just type `steinenc` anywhere in Termux!
 
 ---
 
 ## ⚙️ Usage
 
-Hermit provides **4 modes** of operation. Run `python enc.py help` to see all available commands and options.
+Hermit provides **4 modes** of operation. Run `steinenc help` or `python enc.py help` to see all available commands and options.
 
 ```bash
-python enc.py help
+steinenc help
 ```
 
 ---
@@ -76,6 +113,8 @@ python enc.py help
 ### 1️⃣ Normal Mode
 
 ```bash
+steinenc
+# or
 python enc.py
 ```
 
@@ -90,6 +129,8 @@ python enc.py
 ### 2️⃣ Bot Mode
 
 ```bash
+steinenc bot
+# or
 python enc.py bot
 ```
 
@@ -100,6 +141,8 @@ python enc.py bot
 ### 3️⃣ Site Mode ✨ `Recommended`
 
 ```bash
+steinenc site
+# or
 python enc.py site
 ```
 
@@ -118,10 +161,26 @@ python enc.py site
 ### 4️⃣ Bot Control Mode
 
 ```bash
+steinenc bot_control
+# or
 python enc.py bot_control
 ```
 
 > Control and manage Hermit remotely via a Telegram bot interface. Perfect for managing encryption jobs without direct terminal access.
+
+---
+
+## 📥 Download Versions
+
+Hermit is available in **3 version-specific builds** in the `/files` directory. Download the one matching your Python version:
+
+| File | Python Version | Download |
+|------|----------------|----------|
+| `3.11.py` | Python 3.11 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.11.py) |
+| `3.12.py` | Python 3.12 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.12.py) |
+| `3.13.py` | Python 3.13 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.13.py) |
+
+> 💡 **Pro Tip:** Just run `steinenc` and it will automatically download and execute the correct version for your Python installation!
 
 ---
 
@@ -153,7 +212,9 @@ Encryption layers can be toggled in `settings.json`:
 You can also manage settings directly from the command line:
 
 ```bash
-python enc.py setting
+steinenc settings
+# or
+python enc.py settings
 ```
 
 > Use this command to interactively view and change your `settings.json` options without editing the file manually.
