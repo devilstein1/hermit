@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEIN ENC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div class="wrapper">
+  <header class="header hero-panel">
+    <div class="hero-copy">
+      <div class="header-badge">Python Obfuscation Engine</div>
+      <h1>
+        <span class="title-stein">STEIN</span>
+        <span class="title-enc">ENC</span>
+      </h1>
+      <div class="header-sub">Encrypt &amp; Deliver via Telegram</div>
+    </div>
+    <div class="hero-mark" aria-hidden="true">
+      <span>PY</span>
+      <strong>ENC</strong>
+    </div>
+  </header>
+
+  <main class="app-grid">
+    <section class="section section-credentials">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <span class="section-title">Credentials</span>
+        <div class="section-bar"></div>
+      </div>
+      <div class="panel">
+        <div class="field">
+          <label class="lbl">Bot Token</label>
+          <div class="input-row">
+            <input type="text" id="token" placeholder="123456789:ABCdef...">
+            <button class="btn-verify" type="button" id="btnCheck">Verify</button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">Chat ID</label>
+          <input type="text" id="chat_id" placeholder="-100123456789">
+        </div>
+        <div class="status-row"><div id="msg"></div></div>
+      </div>
+    </section>
+
+    <section class="section section-files">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">Source Files</span>
+        <div class="section-bar"></div>
+      </div>
+      <div class="panel">
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="files" accept=".py" multiple>
+          <span class="file-drop-icon">+</span>
+          <div class="file-drop-text">Drop .py files or click to browse</div>
+          <div class="file-drop-sub">Multiple selection supported</div>
+        </div>
+        <div class="file-tags" id="fileTags"></div>
+      </div>
+    </section>
+
+    <section class="section section-config">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">Configuration</span>
+        <div class="section-bar"></div>
+      </div>
+      <div class="panel">
+        <div class="field">
+          <label class="lbl">Encryption Options</label>
+          <div class="toggle-grid">
+            <div class="toggle-item">
+              <input type="checkbox" id="anti_input" name="anti_input" checked>
+              <label for="anti_input"><span class="toggle-name">Anti input</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" id="anti_bypass" name="anti_bypass" checked>
+              <label for="anti_bypass"><span class="toggle-name">Anti bypass</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" id="apply_minifier" name="apply_minifier" checked>
+              <label for="apply_minifier"><span class="toggle-name">Minifier</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" id="stein_best" name="stein_best" checked>
+              <label for="stein_best"><span class="toggle-name">Stein Best</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" id="strings" name="strings">
+              <label for="strings"><span class="toggle-name">Strings OBF</span><span class="toggle-state"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label class="lbl">Target Platforms</label>
+          <div class="toggle-grid">
+            <div class="toggle-item">
+              <input type="checkbox" name="platform" id="p_v7" value="v7">
+              <label for="p_v7"><span class="toggle-name">ARM v7</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" name="platform" id="p_v8" value="v8">
+              <label for="p_v8"><span class="toggle-name">ARM v8</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" name="platform" id="p_linux" value="linux">
+              <label for="p_linux"><span class="toggle-name">Linux</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" name="platform" id="p_win" value="win">
+              <label for="p_win"><span class="toggle-name">Windows</span><span class="toggle-state"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label class="lbl">Python Version</label>
+          <div class="toggle-grid">
+            <div class="toggle-item">
+              <input type="checkbox" name="version" id="v311" value="3.11">
+              <label for="v311"><span class="toggle-name">3.11</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" name="version" id="v312" value="3.12">
+              <label for="v312"><span class="toggle-name">3.12</span><span class="toggle-state"></span></label>
+            </div>
+            <div class="toggle-item">
+              <input type="checkbox" name="version" id="v313" value="3.13">
+              <label for="v313"><span class="toggle-name">3.13</span><span class="toggle-state"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill"></div>
+        </div>
+
+        <div class="status-row is-hidden" id="encStatus">
+          <div id="encMsg"></div>
+          <div id="timer"></div>
+        </div>
+
+        <button class="btn-encrypt" id="btnEncrypt" type="button"><span>Encrypt &amp; Send to Bot</span></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-line"></div>
+    Telegram &nbsp;<a href="https://t.me/rejerk" target="_blank" rel="noopener noreferrer">@REJERK</a>
+    <div class="footer-line"></div>
+  </footer>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>
