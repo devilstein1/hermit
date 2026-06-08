@@ -17,7 +17,7 @@
         <span class="title-stein">STEIN</span>
         <span class="title-enc">ENC</span>
       </h1>
-      <div class="header-sub">Encrypt &amp; Deliver via Telegram</div>
+      <div class="header-sub">Encrypt &amp; Download or Send via Telegram</div>
     </div>
     <div class="hero-mark" aria-hidden="true">
       <span>PY</span>
@@ -151,7 +151,12 @@
           <div id="timer"></div>
         </div>
 
-        <button class="btn-encrypt" id="btnEncrypt" type="button"><span>Encrypt &amp; Send to Bot</span></button>
+        <div class="progress-log is-hidden" id="progressLog"></div>
+
+        <div class="action-buttons">
+          <button class="btn-encrypt btn-download" id="btnDownload" type="button"><span>Download</span></button>
+          <button class="btn-encrypt btn-send" id="btnEncrypt" type="button"><span>Send to Bot</span></button>
+        </div>
       </div>
     </section>
   </main>
