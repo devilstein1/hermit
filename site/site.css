@@ -437,10 +437,16 @@ input[type="text"]::placeholder {
   white-space: nowrap;
 }
 
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
 .btn-encrypt {
   width: 100%;
   min-height: 56px;
-  margin-top: 20px;
   padding: 13px 15px;
   color: #111315;
   background: #d5d9de;
@@ -448,6 +454,14 @@ input[type="text"]::placeholder {
   font-size: 14px;
   letter-spacing: .1em;
   text-transform: uppercase;
+}
+
+.btn-download {
+  background: #c8d0d8;
+}
+
+.btn-send {
+  background: #d5d9de;
 }
 
 .btn-verify:active,
@@ -494,6 +508,47 @@ input[type="text"]::placeholder {
   margin-left: auto;
   color: var(--quiet);
   font-size: 13px;
+}
+
+.progress-log {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--panel-3);
+  max-height: 220px;
+  overflow-y: auto;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.progress-log .log-line {
+  display: block;
+}
+
+.progress-log .log-line.version {
+  color: var(--text);
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.progress-log .log-line.version:first-child {
+  margin-top: 0;
+}
+
+.progress-log .log-line.done {
+  color: var(--ok);
+}
+
+.progress-log .log-line.sent,
+.progress-log .log-line.finish {
+  color: var(--ok);
+}
+
+.progress-log .log-line.err {
+  color: var(--danger);
 }
 
 .progress-bar {
@@ -585,6 +640,10 @@ input[type="text"]::placeholder {
   .section-config {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
   }
 }
 
