@@ -99,16 +99,48 @@
   }
 
   function setBusy(isBusy) {
-    var btn = $('btnEncrypt');
+    var btnDownload = $('btnDownload');
+    var btnEncrypt = $('btnEncrypt');
     var statusRow = $('encStatus');
     var progress = $('progressBar');
+    var progressLog = $('progressLog');
 
-    if (btn) btn.disabled = isBusy;
+    if (btnDownload) btnDownload.disabled = isBusy;
+    if (btnEncrypt) btnEncrypt.disabled = isBusy;
     if (statusRow) statusRow.classList.toggle('is-hidden', !isBusy);
     if (progress) progress.classList.toggle('active', isBusy);
+    if (progressLog) progressLog.classList.toggle('is-hidden', !isBusy);
   }
 
-  function encryptAndSend() {
+  function clearProgressLog() {
+    var progressLog = $('progressLog');
+    if (progressLog) progressLog.innerHTML = '';
+  }
+
+  function appendProgressLog(message, kind) {
+    var progressLog = $('progressLog');
+    if (!progressLog) return;
+
+    var line = document.createElement('span');
+    line.className = 'log-line ' + (kind || '');
+
+    if (kind === 'version') {
+      line.textContent = message;
+    } else if (message.indexOf('Done for ') === 0) {
+      line.textContent = message;
+      line.classList.add('done');
+    } else if (message.indexOf('Sent ') === 0) {
+      line.textContent = message;
+      line.classList.add('sent');
+    } else {
+      line.textContent = message;
+    }
+
+    progressLog.appendChild(line);
+    progressLog.scrollTop = progressLog.scrollHeight;
+  }
+
+  function buildFormData(requireBot) {
     var token = ($('token') ? $('token').value : '').trim();
     var chatId = ($('chat_id') ? $('chat_id').value : '').trim();
     var filesInput = $('files');
@@ -116,38 +148,27 @@
     var platforms = checkedValues('platform');
     var versions = checkedValues('version');
 
-    if (!token || !chatId) {
-      setMsg('msg', 'Enter token and chat ID', true);
-      return;
+    if (requireBot && (!token || !chatId)) {
+      return { error: 'Enter token and chat ID' };
     }
 
     if (!files || !files.length) {
-      setMsg('msg', 'Select at least one file', true);
-      return;
+      return { error: 'Select at least one file' };
     }
 
     if (!platforms.length) {
-      setMsg('msg', 'Select a platform', true);
-      return;
+      return { error: 'Select a platform' };
     }
 
     if (!versions.length) {
-      setMsg('msg', 'Select a Python version', true);
-      return;
+      return { error: 'Select a Python version' };
     }
 
-    setBusy(true);
-    setMsg('encMsg', 'Encrypting...', false);
-
-    var start = Date.now();
-    var timerEl = $('timer');
-    var timerId = window.setInterval(function () {
-      if (timerEl) timerEl.textContent = ((Date.now() - start) / 1000).toFixed(0) + 's';
-    }, 1000);
-
     var fd = new FormData();
-    fd.append('token', token);
-    fd.append('chat_id', chatId);
+    if (requireBot) {
+      fd.append('token', token);
+      fd.append('chat_id', chatId);
+    }
     fd.append('anti_input', $('anti_input') && $('anti_input').checked ? '1' : '0');
     fd.append('anti_bypass', $('anti_bypass') && $('anti_bypass').checked ? '1' : '0');
     fd.append('apply_minifier', $('apply_minifier') && $('apply_minifier').checked ? '1' : '0');
@@ -158,20 +179,103 @@
 
     for (var i = 0; i < files.length; i++) fd.append('files', files[i]);
 
-    fetch('/api/encrypt', { method: 'POST', body: fd })
-      .then(function (r) {
-        if (!r.ok) {
-          return r.json().then(function (d) {
-            throw new Error(d.error || 'Failed');
+    return { formData: fd };
+  }
+
+  function parseSseChunk(buffer, onEvent) {
+    var parts = buffer.split('\n\n');
+    var remainder = parts.pop();
+
+    for (var i = 0; i < parts.length; i++) {
+      var block = parts[i];
+      var lines = block.split('\n');
+      for (var j = 0; j < lines.length; j++) {
+        if (lines[j].indexOf('data: ') === 0) {
+          try {
+            onEvent(JSON.parse(lines[j].slice(6)));
+          } catch (e) {}
+        }
+      }
+    }
+
+    return remainder || '';
+  }
+
+  function classifyProgressMessage(message) {
+    if (/^\d+\.\d+ Version$/.test(message)) return 'version';
+    if (message.indexOf('Done for ') === 0) return 'done';
+    if (message.indexOf('Sent ') === 0) return 'sent';
+    return '';
+  }
+
+  function runEncryption(endpoint, requireBot, doneMessage) {
+    var built = buildFormData(requireBot);
+    if (built.error) {
+      setMsg('msg', built.error, true);
+      return;
+    }
+
+    setBusy(true);
+    clearProgressLog();
+    setMsg('encMsg', 'Starting...', false);
+
+    var start = Date.now();
+    var timerEl = $('timer');
+    var timerId = window.setInterval(function () {
+      if (timerEl) timerEl.textContent = ((Date.now() - start) / 1000).toFixed(0) + 's';
+    }, 1000);
+
+    fetch(endpoint, { method: 'POST', body: built.formData })
+      .then(function (response) {
+        if (!response.ok) {
+          return response.json().then(function (d) {
+            throw new Error(d.error || 'Request failed');
           });
         }
-        return r.json();
-      })
-      .then(function () {
-        setMsg('encMsg', 'Done. Sent to bot.', false);
+
+        if (!response.body || !response.body.getReader) {
+          throw new Error('Streaming not supported');
+        }
+
+        var reader = response.body.getReader();
+        var decoder = new TextDecoder();
+        var buffer = '';
+
+        function handleEvent(event) {
+          if (event.type === 'progress') {
+            appendProgressLog(event.message, classifyProgressMessage(event.message));
+            setMsg('encMsg', event.message, false);
+          } else if (event.type === 'done') {
+            if (event.download_url) {
+              appendProgressLog('Download ready.', 'finish');
+              setMsg('encMsg', 'Download starting...', false);
+              window.location.href = event.download_url;
+            } else {
+              appendProgressLog(event.message || doneMessage, 'finish');
+              setMsg('encMsg', event.message || doneMessage, false);
+            }
+          } else if (event.type === 'error') {
+            appendProgressLog(event.message || 'Error', 'err');
+            throw new Error(event.message || 'Error');
+          }
+        }
+
+        function readChunk() {
+          return reader.read().then(function (result) {
+            if (result.done) return;
+            buffer += decoder.decode(result.value, { stream: true });
+            buffer = parseSseChunk(buffer, handleEvent);
+            return readChunk();
+          });
+        }
+
+        return readChunk().then(function () {
+          if (buffer) parseSseChunk(buffer + '\n\n', handleEvent);
+        });
       })
       .catch(function (err) {
         setMsg('encMsg', err.message || 'Error', true);
+        appendProgressLog(err.message || 'Error', 'err');
       })
       .finally(function () {
         window.clearInterval(timerId);
@@ -180,11 +284,22 @@
       });
   }
 
+  function encryptAndDownload() {
+    runEncryption('/api/download', false, 'Download complete.');
+  }
+
+  function encryptAndSend() {
+    runEncryption('/api/encrypt', true, 'Done. Sent to bot.');
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initFileDrop();
 
     var btnCheck = $('btnCheck');
     if (btnCheck) btnCheck.addEventListener('click', checkCreds);
+
+    var btnDownload = $('btnDownload');
+    if (btnDownload) btnDownload.addEventListener('click', encryptAndDownload);
 
     var btnEncrypt = $('btnEncrypt');
     if (btnEncrypt) btnEncrypt.addEventListener('click', encryptAndSend);
