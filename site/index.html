@@ -29,22 +29,55 @@
     <section class="section section-credentials">
       <div class="section-head">
         <span class="section-num">01</span>
-        <span class="section-title">Credentials</span>
+        <span class="section-title">Delivery</span>
         <div class="section-bar"></div>
       </div>
       <div class="panel">
         <div class="field">
-          <label class="lbl">Bot Token</label>
-          <div class="input-row">
-            <input type="text" id="token" placeholder="123456789:ABCdef...">
-            <button class="btn-verify" type="button" id="btnCheck">Verify</button>
+          <label class="lbl">Output Mode</label>
+          <div class="mode-toggle" id="modeToggle" data-mode="download" role="switch" aria-checked="false" tabindex="0">
+            <span class="mode-toggle-track">
+              <span class="mode-toggle-knob"></span>
+            </span>
+            <span class="mode-toggle-labels">
+              <span class="mode-toggle-label is-active" data-mode="download">Download</span>
+              <span class="mode-toggle-divider">/</span>
+              <span class="mode-toggle-label" data-mode="bot">Send to Bot</span>
+            </span>
           </div>
+          <div class="mode-hint" id="modeHint">No bot credentials needed — files download directly.</div>
         </div>
-        <div class="field">
-          <label class="lbl">Chat ID</label>
-          <input type="text" id="chat_id" placeholder="-100123456789">
+
+        <div class="field" id="bundleField">
+          <label class="lbl">Bundle</label>
+          <div class="pill-switch" id="bundleSwitch" data-mode="individual" role="radiogroup" aria-label="Bundle mode">
+            <button class="pill-option is-active" type="button" data-value="individual" role="radio" aria-checked="true">
+              <span class="pill-dot"></span>
+              <span class="pill-text">Individual</span>
+            </button>
+            <button class="pill-option" type="button" data-value="zip" role="radio" aria-checked="false">
+              <span class="pill-dot"></span>
+              <span class="pill-text">ZIP</span>
+            </button>
+          </div>
+          <div class="mode-hint" id="bundleHint">Each file downloaded as soon as it finishes.</div>
         </div>
-        <div class="status-row"><div id="msg"></div></div>
+
+        <div id="credsFields" class="is-hidden">
+          <div class="divider"></div>
+          <div class="field">
+            <label class="lbl">Bot Token</label>
+            <div class="input-row">
+              <input type="text" id="token" placeholder="123456789:ABCdef...">
+              <button class="btn-verify" type="button" id="btnCheck">Verify</button>
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl">Chat ID</label>
+            <input type="text" id="chat_id" placeholder="-100123456789">
+          </div>
+          <div class="status-row"><div id="msg"></div></div>
+        </div>
       </div>
     </section>
 
@@ -76,19 +109,19 @@
           <label class="lbl">Encryption Options</label>
           <div class="toggle-grid">
             <div class="toggle-item">
-              <input type="checkbox" id="anti_input" name="anti_input" checked>
+              <input type="checkbox" id="anti_input" name="anti_input">
               <label for="anti_input"><span class="toggle-name">Anti input</span><span class="toggle-state"></span></label>
             </div>
             <div class="toggle-item">
-              <input type="checkbox" id="anti_bypass" name="anti_bypass" checked>
+              <input type="checkbox" id="anti_bypass" name="anti_bypass">
               <label for="anti_bypass"><span class="toggle-name">Anti bypass</span><span class="toggle-state"></span></label>
             </div>
             <div class="toggle-item">
-              <input type="checkbox" id="apply_minifier" name="apply_minifier" checked>
+              <input type="checkbox" id="apply_minifier" name="apply_minifier">
               <label for="apply_minifier"><span class="toggle-name">Minifier</span><span class="toggle-state"></span></label>
             </div>
             <div class="toggle-item">
-              <input type="checkbox" id="stein_best" name="stein_best" checked>
+              <input type="checkbox" id="stein_best" name="stein_best">
               <label for="stein_best"><span class="toggle-name">Stein Best</span><span class="toggle-state"></span></label>
             </div>
             <div class="toggle-item">
@@ -141,7 +174,11 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <section class="section section-run">
+      <div class="panel run-panel">
         <div class="progress-bar" id="progressBar">
           <div class="progress-fill"></div>
         </div>
@@ -153,10 +190,9 @@
 
         <div class="progress-log is-hidden" id="progressLog"></div>
 
-        <div class="action-buttons">
-          <button class="btn-encrypt btn-download" id="btnDownload" type="button"><span>Download</span></button>
-          <button class="btn-encrypt btn-send" id="btnEncrypt" type="button"><span>Send to Bot</span></button>
-        </div>
+        <button class="btn-encrypt" id="btnRun" type="button">
+          <span id="btnRunLabel">Encrypt</span>
+        </button>
       </div>
     </section>
   </main>
