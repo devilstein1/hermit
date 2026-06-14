@@ -166,6 +166,7 @@
 
   function setBusy(isBusy) {
     var btnRun = $('btnRun');
+    var btnLabel = $('btnRunLabel');
     var statusRow = $('encStatus');
     var progress = $('progressBar');
     var progressLog = $('progressLog');
@@ -173,11 +174,13 @@
     var bundle = $('bundleSwitch');
 
     if (btnRun) btnRun.disabled = isBusy;
+    if (btnLabel) btnLabel.textContent = isBusy ? 'Encrypting...' : 'Encrypt';
     if (toggle) toggle.classList.toggle('is-disabled', isBusy);
     if (bundle) bundle.classList.toggle('is-disabled', isBusy);
     if (isBusy) {
       if (statusRow) statusRow.classList.remove('is-hidden');
       if (progressLog) progressLog.classList.remove('is-hidden');
+      if (statusRow) statusRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
     if (progress) progress.classList.toggle('active', isBusy);
   }
@@ -321,6 +324,7 @@
   }
 
   function runEncryption() {
+    try {
     var requireBot = currentMode === 'bot';
     var endpoint = requireBot ? '/api/encrypt' : '/api/download';
     var doneMessage = requireBot ? 'Done. Sent to bot.' : 'Download complete.';
@@ -334,6 +338,7 @@
       clearProgressLog();
       setMsg('encMsg', built.error, true);
       appendProgressLog(built.error, 'err');
+      if (statusRow) statusRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       return;
     }
 
@@ -396,6 +401,16 @@
         if (timerEl) timerEl.textContent = '';
         setBusy(false);
       });
+    } catch (ex) {
+      setBusy(false);
+      var statusRow = $('encStatus');
+      var progressLog = $('progressLog');
+      if (statusRow) statusRow.classList.remove('is-hidden');
+      if (progressLog) progressLog.classList.remove('is-hidden');
+      setMsg('encMsg', ex.message || 'Unexpected error', true);
+      appendProgressLog(ex.message || 'Unexpected error', 'err');
+      if (statusRow) statusRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {
