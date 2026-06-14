@@ -186,27 +186,19 @@
   }
 
   function triggerFileDownload(url, name) {
-    fetch(url)
-      .then(function (r) {
-        if (!r.ok) throw new Error('Download failed (' + r.status + ')');
-        return r.blob();
-      })
-      .then(function (blob) {
-        var objUrl = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = objUrl;
-        if (name) a.download = name;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        window.setTimeout(function () {
-          if (a.parentNode) a.parentNode.removeChild(a);
-          URL.revokeObjectURL(objUrl);
-        }, 2000);
-      })
-      .catch(function (err) {
-        appendProgressLog('Download failed: ' + (err.message || err), 'err');
-      });
+    var progressLog = $('progressLog');
+    if (progressLog) {
+      var wrapper = document.createElement('span');
+      wrapper.className = 'log-line dl-link-line';
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name || 'file.py';
+      a.className = 'dl-link';
+      a.textContent = '⬇ ' + (name || 'Download file');
+      wrapper.appendChild(a);
+      progressLog.appendChild(wrapper);
+      progressLog.scrollTop = progressLog.scrollHeight;
+    }
   }
 
   function clearProgressLog() {
