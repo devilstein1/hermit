@@ -653,6 +653,7 @@ input[type="text"]::placeholder {
   width: 100%;
   min-height: 64px;
   margin-top: 18px;
+  touch-action: manipulation;
   padding: 13px 15px;
   color: #0a0c0f;
   background: linear-gradient(180deg, #ffffff, #d5d9de);
