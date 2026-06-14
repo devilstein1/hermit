@@ -175,9 +175,11 @@
     if (btnRun) btnRun.disabled = isBusy;
     if (toggle) toggle.classList.toggle('is-disabled', isBusy);
     if (bundle) bundle.classList.toggle('is-disabled', isBusy);
-    if (statusRow) statusRow.classList.toggle('is-hidden', !isBusy);
+    if (isBusy) {
+      if (statusRow) statusRow.classList.remove('is-hidden');
+      if (progressLog) progressLog.classList.remove('is-hidden');
+    }
     if (progress) progress.classList.toggle('active', isBusy);
-    if (progressLog) progressLog.classList.toggle('is-hidden', !isBusy);
   }
 
   function triggerFileDownload(url, name) {
