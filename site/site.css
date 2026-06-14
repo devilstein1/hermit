@@ -817,6 +817,30 @@ input[type="text"]::placeholder {
   color: var(--danger);
 }
 
+.progress-log .dl-link-line {
+  display: block;
+  margin-top: 4px;
+}
+
+.progress-log .dl-link {
+  display: inline-block;
+  padding: 6px 14px;
+  background: linear-gradient(180deg, #ffffff, #d5d9de);
+  color: #0a0c0f;
+  font-family: Orbitron, Rajdhani, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  border-radius: 6px;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.progress-log .dl-link:active {
+  opacity: .75;
+}
+
 .progress-bar {
   display: none;
   width: 100%;
