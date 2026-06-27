@@ -10,10 +10,10 @@
 
 <br>
 
-[![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Cython](https://img.shields.io/badge/Cython-Powered-F7C948?style=for-the-badge&logo=cython&logoColor=black)](https://cython.org)
 [![Termux](https://img.shields.io/badge/Termux-Only-1DBF73?style=for-the-badge&logo=android&logoColor=white)](#)
-[![Subscription](https://img.shields.io/badge/Subscription-Required-FF4444?style=for-the-badge&logo=buymeacoffee&logoColor=white)](#contact)
+[![Free](https://img.shields.io/badge/Free-For%20Everyone-22C55E?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](#)
 [![MIT License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
 </div>
@@ -26,7 +26,7 @@
 
 Hermit transforms Python source code into a highly secured, non-reversible format — making it **completely impossible** to retrieve the original logic. Built on top of **Python** and **Cython**, it compiles scripts into native binaries with advanced encryption layers on top.
 
-> 🔐 **Subscription Required** — Purchase access instantly via [@stein_vault_bot](https://t.me/stein_vault_bot) on Telegram. **Auto crypto payments supported!**
+> ✅ **Free for Everyone** — This project is completely free to use. No subscription or payment required!
 
 **Obfuscated output runs on:**
 
@@ -42,12 +42,12 @@ Hermit transforms Python source code into a highly secured, non-reversible forma
 ## 📦 Platform & Requirements
 
 > [![Termux](https://img.shields.io/badge/Runs%20On-Termux-1DBF73?style=flat-square&logo=android&logoColor=white)](#)
-> [![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB?style=flat-square&logo=python&logoColor=white)](#)
+> [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python&logoColor=white)](#)
 
 - Engine runs **only on Termux**
-- Supports **Python 3.11, 3.12, and 3.13**
+- Supports **Python 3.13 only**
 - Obfuscated output runs on ARMv7, ARMv8, Windows, and Linux
-- **3 version-specific builds** available in `/files` directory — download the one matching your Python version
+- **Version-specific build** available in `/files` directory — `3.13.py`
 
 ---
 
@@ -92,8 +92,8 @@ steinenc settings  # Configure encryption layers
 ```
 
 The `steinenc` command automatically:
-- Detects your Python version (3.11, 3.12, or 3.13)
-- Downloads the matching version file from GitHub
+- Verifies your Python version (3.13 required)
+- Downloads the correct version file from GitHub
 - Executes it with all features enabled
 
 > No need to `cd` into the Hermit directory every time — just type `steinenc` anywhere in Termux!
@@ -170,17 +170,15 @@ python enc.py bot_control
 
 ---
 
-## 📥 Download Versions
+## 📥 Download Version
 
-Hermit is available in **3 version-specific builds** in the `/files` directory. Download the one matching your Python version:
+Hermit requires **Python 3.13**. Download the version file from the `/files` directory:
 
 | File | Python Version | Download |
 |------|----------------|----------|
-| `3.11.py` | Python 3.11 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.11.py) |
-| `3.12.py` | Python 3.12 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.12.py) |
 | `3.13.py` | Python 3.13 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.13.py) |
 
-> 💡 **Pro Tip:** Just run `steinenc` and it will automatically download and execute the correct version for your Python installation!
+> 💡 **Pro Tip:** Just run `steinenc` and it will automatically download and execute the version file!
 
 ---
 
@@ -221,21 +219,6 @@ python enc.py settings
 
 ---
 
-## 💳 Purchase / Subscription
-
-<div align="center">
-
-[![Buy Now](https://img.shields.io/badge/Buy%20via%20Bot-@stein__vault__bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/stein_vault_bot)
-
-</div>
-
-Purchase your subscription instantly through **[@stein_vault_bot](https://t.me/stein_vault_bot)** on Telegram.
-
-- 🪙 **Auto crypto payments** supported
-- ⚡ Instant access after payment
-- 🔒 Secure and automated
-
----
 
 ## 📞 Contact
 
@@ -253,7 +236,7 @@ Purchase your subscription instantly through **[@stein_vault_bot](https://t.me/s
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — free to use, modify, and distribute with proper credit to the original author.
+This project is licensed under the **MIT License** — free to use and distribute with proper credit to the original author. No one can modify this project.
 
 ---
 
