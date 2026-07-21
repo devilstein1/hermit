@@ -1,6 +1,6 @@
 <div align="center">
 
-![Hermit Banner](https://i.ibb.co/sBWBFgD/a-professional-photograph-of-a-dark-hermit.jpg)
+<img src="https://i.ibb.co/sBWBFgD/a-professional-photograph-of-a-dark-hermit.jpg" alt="Hermit Banner" width="450">
 
 <br>
 
@@ -10,11 +10,13 @@
 
 <br>
 
-[![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Cython](https://img.shields.io/badge/Cython-Powered-F7C948?style=for-the-badge&logo=cython&logoColor=black)](https://cython.org)
 [![Termux](https://img.shields.io/badge/Termux-Only-1DBF73?style=for-the-badge&logo=android&logoColor=white)](#)
 [![Free](https://img.shields.io/badge/Free-For%20Everyone-22C55E?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](#)
 [![MIT License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+
+### ✨ Supports All Python Versions Now! ✨
+**Python 3.11 • 3.12 • 3.13 • 3.14** — *One tool, unlimited compatibility!*
 
 </div>
 
@@ -42,12 +44,12 @@ Hermit transforms Python source code into a highly secured, non-reversible forma
 ## 📦 Platform & Requirements
 
 > [![Termux](https://img.shields.io/badge/Runs%20On-Termux-1DBF73?style=flat-square&logo=android&logoColor=white)](#)
-> [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python&logoColor=white)](#)
+> [![Python](https://img.shields.io/badge/Python-3.11%7C3.12%7C3.13%7C3.14-3776AB?style=flat-square&logo=python&logoColor=white)](#)
 
 - Engine runs **only on Termux**
-- Supports **Python 3.13 only**
-- Obfuscated output runs on ARMv7, ARMv8, Windows, and Linux
-- **Version-specific build** available in `/files` directory — `3.13.py`
+- Supports **Python 3.11, 3.12, 3.13, and 3.14**
+- Obfuscated output runs on **ARMv7, ARMv8, Windows, and Linux** (regardless of Python version)
+- **Version-specific build** available in `/files` directory — `3.11.py`, `3.12.py`, `3.13.py`, `3.14.py`
 
 ---
 
@@ -158,27 +160,18 @@ python enc.py site
 
 ---
 
-### 4️⃣ Bot Control Mode
-
-```bash
-steinenc bot_control
-# or
-python enc.py bot_control
-```
-
-> Control and manage Hermit remotely via a Telegram bot interface. Perfect for managing encryption jobs without direct terminal access.
-
----
-
 ## 📥 Download Version
 
-Hermit requires **Python 3.13**. Download the version file from the `/files` directory:
+Hermit supports **Python 3.11, 3.12, 3.13, and 3.14**. Download the version file from the `/files` directory:
 
 | File | Python Version | Download |
 |------|----------------|----------|
+| `3.11.py` | Python 3.11 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.11.py) |
+| `3.12.py` | Python 3.12 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.12.py) |
 | `3.13.py` | Python 3.13 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.13.py) |
+| `3.14.py` | Python 3.14 | [Raw](https://raw.githubusercontent.com/stein-exe/hermit/refs/heads/main/files/3.14.py) |
 
-> 💡 **Pro Tip:** Just run `steinenc` and it will automatically download and execute the version file!
+> 💡 **Pro Tip:** Just run `steinenc` and it will automatically detect your Python version, download and execute the correct version file!
 
 ---
 
@@ -219,6 +212,13 @@ python enc.py settings
 
 ---
 
+## ⭐ Support & Star
+
+If you're enjoying **Hermit** and finding it useful, please consider **starring the repository** on GitHub! Your support helps us continue development and reach more developers.
+
+[![Star us on GitHub](https://img.shields.io/badge/Star%20us%20on-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/stein-exe/hermit)
+
+---
 
 ## 📞 Contact
 
