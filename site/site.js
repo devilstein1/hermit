@@ -270,11 +270,6 @@ deliveryMode.addEventListener("change", () => {
   telegramFields.classList.toggle("hidden", val !== "bot");
 });
 
-document.getElementById("banner").addEventListener("input", (e) => {
-  const lines = e.target.value.split("\n");
-  if (lines.length > 4) e.target.value = lines.slice(0, 4).join("\n");
-});
-
 /* ── Telegram verify ── */
 checkBtn.addEventListener("click", async () => {
   const token = document.getElementById("token").value.trim();
