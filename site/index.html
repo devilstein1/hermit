@@ -2,212 +2,192 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEIN ENC</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>stein/enc — Python source protection</title>
+<meta name="description" content="Obfuscate, harden, and cross-compile your Python source into protected binaries for Android, Windows, and Linux.">
+<link rel="stylesheet" href="/site.css">
 </head>
 <body>
-<div class="wrapper">
-  <header class="header hero-panel">
-    <div class="hero-copy">
-      <div class="header-badge">Python Obfuscation Engine</div>
-      <h1>
-        <span class="title-stein">STEIN</span>
-        <span class="title-enc">ENC</span>
-      </h1>
-      <div class="header-sub">Encrypt &amp; Download or Send via Telegram</div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <svg class="brand-seal" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 1.6 21.5 7v10L12 22.4 2.5 17V7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M14.6 9.1c-.7-.8-1.7-1.2-2.8-1.2-1.6 0-2.7.8-2.7 2 0 1.3 1.1 1.7 2.7 2 1.9.4 3.2.9 3.2 2.4 0 1.3-1.3 2.2-3.1 2.2-1.4 0-2.5-.5-3.2-1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-word">stein<em>/enc</em></span>
+  </a>
+  <div class="matrix" id="matrixReadout" title="Build targets: versions × platforms">
+    <div class="matrix-grid" id="matrixGrid"></div>
+    <div class="matrix-num">
+      <span class="matrix-count" id="matrixCount">1</span>
+      <span class="matrix-label">targets</span>
     </div>
-    <div class="hero-mark" aria-hidden="true">
-      <span>PY</span>
-      <strong>ENC</strong>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ── Hero / thesis ─────────────────────────── -->
+  <section class="hero">
+    <textarea class="hero-banner" id="banner" name="banner" rows="4" spellcheck="false" aria-label="Author banner">__ENC_AUTHOR__ = "STEIN"
+__TELEGRAM__ = "@rejerk"
+__GROUP_CHAT__ = "@keped"</textarea>
+
+    <!-- Live pipeline — the signature. Reacts to your selections below. -->
+    <div class="pipeline" id="pipeline" role="img" aria-label="Build pipeline preview">
+      <div class="stage" id="pipeSource">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Source</span>
+        <span class="stage-meta" id="pipeSourceMeta">no files</span>
+      </div>
+      <span class="flow" aria-hidden="true"></span>
+      <div class="stage" id="pipeObf">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Obfuscate</span>
+        <span class="stage-meta" id="pipeObfMeta">off</span>
+      </div>
+      <span class="flow" aria-hidden="true"></span>
+      <div class="stage" id="pipeHarden">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Harden</span>
+        <span class="stage-meta" id="pipeHardenMeta">0 layers</span>
+      </div>
+      <span class="flow" aria-hidden="true"></span>
+      <div class="stage sealed" id="pipeCompile">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Compile</span>
+        <span class="stage-meta" id="pipeCompileMeta">1 target</span>
+      </div>
+      <span class="flow" aria-hidden="true"></span>
+      <div class="stage sealed" id="pipeDeliver">
+        <span class="stage-dot"></span>
+        <span class="stage-name">Deliver</span>
+        <span class="stage-meta" id="pipeDeliverMeta">download</span>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main class="app-grid">
-    <section class="section section-credentials">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <span class="section-title">Delivery</span>
-        <div class="section-bar"></div>
+  <!-- ── Workbench: manifest + config ──────────── -->
+  <div class="workbench">
+
+    <!-- Live build order (sticky on desktop, top on mobile) -->
+    <aside class="manifest" id="manifest" aria-label="Build order summary">
+      <div class="manifest-head">
+        <span class="manifest-title">Build order</span>
+        <span class="manifest-seal" id="sumCount">1</span>
       </div>
-      <div class="panel">
-        <div class="field">
-          <label class="lbl">Output Mode</label>
-          <div class="mode-toggle" id="modeToggle" data-mode="download" role="switch" aria-checked="false" tabindex="0">
-            <span class="mode-toggle-track">
-              <span class="mode-toggle-knob"></span>
-            </span>
-            <span class="mode-toggle-labels">
-              <span class="mode-toggle-label is-active" data-mode="download">Download</span>
-              <span class="mode-toggle-divider">/</span>
-              <span class="mode-toggle-label" data-mode="bot">Send to Bot</span>
-            </span>
-          </div>
-          <div class="mode-hint" id="modeHint">No bot credentials needed — files download directly.</div>
+      <dl class="manifest-body">
+        <div class="mrow"><dt>Source</dt><dd id="sumFiles">No files yet</dd></div>
+        <div class="mrow"><dt>Obfuscation</dt><dd id="sumObf">Off</dd></div>
+        <div class="mrow"><dt>Protection</dt><dd id="sumProtect">None</dd></div>
+        <div class="mrow"><dt>Targets</dt><dd id="sumTargets" class="mono">3.12 · 64-bit Android</dd></div>
+        <div class="mrow"><dt>Output</dt><dd id="sumOutput">Individual files</dd></div>
+        <div class="mrow"><dt>Delivery</dt><dd id="sumDelivery">Download</dd></div>
+      </dl>
+      <p class="manifest-note" id="sumNote">Choose your source to begin.</p>
+    </aside>
+
+    <form id="form" class="config">
+      <section class="card" data-step="01">
+        <div class="tagline">Source files</div>
+        <label class="drop" id="drop">
+          <input type="file" id="files" accept=".py" multiple hidden>
+          <svg class="drop-ico" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15V4m0 0 4 4m-4-4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span id="dropText">Tap to choose <code>.py</code> files, or drag &amp; drop</span>
+          <span class="drop-hint">Multiple files allowed · <code>.py</code> only</span>
+          <ul id="fileList"></ul>
+        </label>
+      </section>
+
+      <section class="card" data-step="02">
+        <div class="tagline">Obfuscation</div>
+        <label class="toggle">
+          <input type="checkbox" id="obfuscate" name="obfuscate" checked>
+          <span class="toggle-copy"><b>Obfuscate source</b><i>Rewrite names and strings before compiling</i></span>
+        </label>
+        <div id="obfWarn" class="obf-warn hidden">⚠ Not recommended — your source will not be obfuscated before compiling.</div>
+
+        <div id="obfOptions" class="toggle-list">
+          <label class="toggle">
+            <input type="checkbox" id="antiSite" name="anti_site">
+            <span class="toggle-copy"><b>Anti-site</b><i>Refuses to run outside the allowed host</i></span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="antiDebug" name="anti_debug">
+            <span class="toggle-copy"><b>Anti-debugger</b><i>Detects and exits under a debugger</i></span>
+          </label>
         </div>
+      </section>
 
-        <div class="field" id="bundleField">
-          <label class="lbl">Bundle</label>
-          <div class="pill-switch" id="bundleSwitch" data-mode="individual" role="radiogroup" aria-label="Bundle mode">
-            <button class="pill-option is-active" type="button" data-value="individual" role="radio" aria-checked="true">
-              <span class="pill-dot"></span>
-              <span class="pill-text">Individual</span>
-            </button>
-            <button class="pill-option" type="button" data-value="zip" role="radio" aria-checked="false">
-              <span class="pill-dot"></span>
-              <span class="pill-text">ZIP</span>
-            </button>
-          </div>
-          <div class="mode-hint" id="bundleHint">Each file downloaded as soon as it finishes.</div>
+
+      <section class="card" data-step="04">
+        <div class="tagline">Python versions</div>
+        <div class="chips" id="versions">
+          <label class="chip"><input type="checkbox" name="versions" value="3.11"><span>3.11</span></label>
+          <label class="chip"><input type="checkbox" name="versions" value="3.12" checked><span>3.12</span></label>
+          <label class="chip"><input type="checkbox" name="versions" value="3.13"><span>3.13</span></label>
+          <label class="chip"><input type="checkbox" name="versions" value="3.14"><span>3.14</span></label>
         </div>
+      </section>
 
-        <div id="credsFields" class="is-hidden">
-          <div class="divider"></div>
-          <div class="field">
-            <label class="lbl">Bot Token</label>
-            <div class="input-row">
-              <input type="text" id="token" placeholder="123456789:ABCdef...">
-              <button class="btn-verify" type="button" id="btnCheck">Verify</button>
-            </div>
-          </div>
-          <div class="field">
-            <label class="lbl">Chat ID</label>
-            <input type="text" id="chat_id" placeholder="-100123456789">
-          </div>
-          <div class="status-row"><div id="msg"></div></div>
+      <section class="card" data-step="05">
+        <div class="tagline">Target platforms</div>
+        <div class="chips" id="platforms">
+          <label class="chip"><input type="checkbox" name="platforms" value="v7"><span>32-bit Android</span></label>
+          <label class="chip"><input type="checkbox" name="platforms" value="v8" checked><span>64-bit Android</span></label>
+          <label class="chip"><input type="checkbox" name="platforms" value="win"><span>Windows</span></label>
+          <label class="chip"><input type="checkbox" name="platforms" value="linux"><span>Linux</span></label>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-files">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <span class="section-title">Source Files</span>
-        <div class="section-bar"></div>
-      </div>
-      <div class="panel">
-        <div class="file-drop" id="fileDrop">
-          <input type="file" id="files" accept=".py" multiple>
-          <span class="file-drop-icon">+</span>
-          <div class="file-drop-text">Drop .py files or click to browse</div>
-          <div class="file-drop-sub">Multiple selection supported</div>
+      <section class="card" data-step="06">
+        <div class="tagline">Output</div>
+        <div class="seg" id="bundleMode">
+          <label class="segopt active"><input type="radio" name="bundle_mode" value="individual" checked><span>Individual files</span></label>
+          <label class="segopt"><input type="radio" name="bundle_mode" value="zip"><span>Single ZIP</span></label>
         </div>
-        <div class="file-tags" id="fileTags"></div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-config">
-      <div class="section-head">
-        <span class="section-num">03</span>
-        <span class="section-title">Configuration</span>
-        <div class="section-bar"></div>
-      </div>
-      <div class="panel">
-        <div class="field">
-          <label class="lbl">Encryption Options</label>
-          <div class="toggle-grid">
-            <div class="toggle-item">
-              <input type="checkbox" id="anti_input" name="anti_input">
-              <label for="anti_input"><span class="toggle-name">Anti input</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" id="anti_bypass" name="anti_bypass">
-              <label for="anti_bypass"><span class="toggle-name">Anti bypass</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" id="apply_minifier" name="apply_minifier">
-              <label for="apply_minifier"><span class="toggle-name">Minifier</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" id="stein_best" name="stein_best">
-              <label for="stein_best"><span class="toggle-name">Stein Best</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" id="strings" name="strings">
-              <label for="strings"><span class="toggle-name">Strings OBF</span><span class="toggle-state"></span></label>
-            </div>
-          </div>
+      <section class="card" data-step="07">
+        <div class="tagline">Delivery</div>
+        <div class="seg" id="deliveryMode">
+          <label class="segopt active"><input type="radio" name="delivery" value="download" checked><span>Download</span></label>
+          <label class="segopt"><input type="radio" name="delivery" value="bot"><span>Send to Telegram</span></label>
         </div>
-
-        <div class="divider"></div>
-
-        <div class="field">
-          <label class="lbl">Target Platforms</label>
-          <div class="toggle-grid">
-            <div class="toggle-item">
-              <input type="checkbox" name="platform" id="p_v7" value="v7">
-              <label for="p_v7"><span class="toggle-name">ARM v7</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="platform" id="p_v8" value="v8">
-              <label for="p_v8"><span class="toggle-name">ARM v8</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="platform" id="p_linux" value="linux">
-              <label for="p_linux"><span class="toggle-name">Linux</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="platform" id="p_win" value="win">
-              <label for="p_win"><span class="toggle-name">Windows</span><span class="toggle-state"></span></label>
-            </div>
-          </div>
+        <div id="telegramFields" class="telegram-fields hidden">
+          <input type="text" id="token" placeholder="Bot token" autocomplete="off">
+          <input type="text" id="chatId" placeholder="Chat ID" autocomplete="off">
+          <button type="button" id="checkBtn" class="btn ghost">Verify</button>
+          <span id="checkResult" class="check-result"></span>
         </div>
+      </section>
 
-        <div class="divider"></div>
+      <button type="submit" id="submitBtn" class="btn primary big">Run build</button>
+    </form>
+  </div>
 
-        <div class="field">
-          <label class="lbl">Python Version</label>
-          <div class="toggle-grid">
-            <div class="toggle-item">
-              <input type="checkbox" name="version" id="v311" value="3.11">
-              <label for="v311"><span class="toggle-name">3.11</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="version" id="v312" value="3.12">
-              <label for="v312"><span class="toggle-name">3.12</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="version" id="v313" value="3.13">
-              <label for="v313"><span class="toggle-name">3.13</span><span class="toggle-state"></span></label>
-            </div>
-            <div class="toggle-item">
-              <input type="checkbox" name="version" id="v314" value="3.14">
-              <label for="v314"><span class="toggle-name">3.14</span><span class="toggle-state"></span></label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="log" class="card log hidden">
+    <div class="log-head">
+      <span class="tagline">Build console</span>
+      <span class="log-status" id="logStatus">running</span>
+    </div>
+    <div id="logLines" class="log-lines"></div>
+    <div id="results" class="results"></div>
+  </section>
 
-    <section class="section section-run">
-      <div class="panel run-panel">
-        <div class="progress-bar" id="progressBar">
-          <div class="progress-fill"></div>
-        </div>
-
-        <div class="status-row is-hidden" id="encStatus">
-          <div id="encMsg"></div>
-          <div id="timer"></div>
-        </div>
-
-        <div class="progress-log is-hidden" id="progressLog"></div>
-
-        <button class="btn-encrypt" id="btnRun" type="button">
-          <span id="btnRunLabel">Encrypt</span>
-        </button>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-line"></div>
-    Telegram &nbsp;<a href="https://t.me/rejerk" target="_blank" rel="noopener noreferrer">@REJERK</a>
-    <div class="footer-line"></div>
+  <footer class="foot">
+    <div class="foot-mark">stein<em>/enc</em></div>
+    <p>A source-protection workbench. Your files are compiled and hardened per build, then delivered to you — nothing is kept longer than the job needs.</p>
   </footer>
-</div>
 
-<script src="site.js"></script>
+</main>
+
+<script src="/site.js"></script>
 </body>
 </html>
